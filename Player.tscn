@@ -1,9 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://0qyrw6kxtf4h"]
+[gd_scene load_steps=10 format=3 uid="uid://0qyrw6kxtf4h"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_jm32w"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ol6m3"]
+bounce = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ig8g"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_nj3db"]
+material = SubResource("ShaderMaterial_8ig8g")
 size = Vector3(1.5, 0.5, 3)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m4eai"]
+direction = Vector3(1, 0, -10)
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0.3, 0)
+scale_max = 2.2
+scale_over_velocity_min = 209.87
+scale_over_velocity_max = 654.31
+turbulence_noise_speed = Vector3(0, 10, 0)
+turbulence_noise_speed_random = 4.0
+turbulence_influence_min = 0.67
+turbulence_influence_max = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_5dwvq"]
+radius = 0.1
+height = 0.2
+radial_segments = 6
+rings = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmmjd"]
 albedo_color = Color(0, 0.0705882, 0.160784, 1)
@@ -21,18 +45,29 @@ points = PackedVector3Array(-0.77381, 0.297507, -1.52351, 0.73229, -0.25, 1.3968
 [node name="Car" type="VehicleBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46775, 0)
 mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_ol6m3")
 gravity_scale = 2.0
 script = ExtResource("1_jm32w")
 
 [node name="Car_Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_nj3db")
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Car_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.352494, 0, -1.80563)
+transparency = 0.5
+cast_shadow = 0
+amount = 10
+randomness = 1.0
+visibility_aabb = AABB(-1.20751, -0.433612, -2.37696, 2.41502, 0.867225, 4.75392)
+process_material = SubResource("ParticleProcessMaterial_m4eai")
+draw_pass_1 = SubResource("SphereMesh_5dwvq")
+
 [node name="front_L_wheel" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.915623, 0, 1.00705)
 use_as_steering = true
 wheel_roll_influence = 0.01
 wheel_radius = 0.4
-wheel_friction_slip = 1.4
+wheel_friction_slip = 5.0
 suspension_travel = 0.15
 suspension_stiffness = 120.0
 damping_compression = 5.0
@@ -46,7 +81,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.905338, 0, 1.00705)
 use_as_steering = true
 wheel_roll_influence = 0.01
 wheel_radius = 0.4
-wheel_friction_slip = 1.4
+wheel_friction_slip = 5.0
 suspension_travel = 0.15
 suspension_stiffness = 120.0
 damping_compression = 5.0
@@ -60,7 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.915623, 0, -1.03045)
 use_as_traction = true
 wheel_roll_influence = 0.01
 wheel_radius = 0.4
-wheel_friction_slip = 1.1
+wheel_friction_slip = 3.0
 suspension_travel = 0.15
 suspension_stiffness = 80.0
 damping_compression = 5.0
@@ -74,7 +109,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.905338, 0, -1.03045)
 use_as_traction = true
 wheel_roll_influence = 0.01
 wheel_radius = 0.4
-wheel_friction_slip = 1.1
+wheel_friction_slip = 3.0
 suspension_travel = 0.15
 suspension_stiffness = 80.0
 damping_compression = 5.0

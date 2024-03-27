@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb6o2xpkaq2kx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkf1u"]
+shading_mode = 0
+albedo_color = Color(0.827451, 0.619608, 0.305882, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bsimi"]
+material = SubResource("StandardMaterial3D_pkf1u")
+top_radius = 0.0
+height = 1.0
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fr8wo"]
+shading_mode = 0
+albedo_color = Color(0.717647, 0.603922, 0.188235, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_nv20c"]
+material = SubResource("StandardMaterial3D_fr8wo")
+outer_radius = 0.631
+rings = 12
+
+[node name="Objective" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.802789, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_bsimi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0910075, 0)
+cast_shadow = 0
+mesh = SubResource("TorusMesh_nv20c")

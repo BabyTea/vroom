@@ -1,12 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dytvy4yu0yipd"]
+[gd_scene load_steps=5 format=3 uid="uid://cmixmsibfnyxi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r7djc"]
+bounce = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_irjhk"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lt8po"]
+backlight = Color(1, 0, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_bewik"]
+material = SubResource("StandardMaterial3D_lt8po")
 
 [node name="Box" type="Node3D"]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_r7djc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_irjhk")
