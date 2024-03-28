@@ -1,18 +1,8 @@
 extends Area3D
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-	
+signal touch
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
+# If a player touches the objective, emit the 'Touch' signal
 func _on_body_entered(body):
-	var obj = get_parent()
 	if body.is_in_group("Player"):
-		if obj.visible == true:
-			body.obj_get()
-			obj.visible = false
+		emit_signal("touch")

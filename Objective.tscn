@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bb6o2xpkaq2kx"]
+[gd_scene load_steps=7 format=3 uid="uid://bb6o2xpkaq2kx"]
+
+[ext_resource type="Script" path="res://Objective.gd" id="1_s05ny"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkf1u"]
 shading_mode = 0
@@ -19,6 +21,8 @@ material = SubResource("StandardMaterial3D_fr8wo")
 outer_radius = 0.631
 rings = 12
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_mme0t"]
+
 [node name="Objective" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -30,3 +34,12 @@ mesh = SubResource("CylinderMesh_bsimi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0910075, 0)
 cast_shadow = 0
 mesh = SubResource("TorusMesh_nv20c")
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("1_s05ny")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.268471, 0)
+shape = SubResource("SphereShape3D_mme0t")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://7u230hyjb8cw"]
+[gd_scene load_steps=19 format=3 uid="uid://7u230hyjb8cw"]
 
 [ext_resource type="PackedScene" uid="uid://0qyrw6kxtf4h" path="res://Player.tscn" id="1_v44dy"]
 [ext_resource type="Script" path="res://TestLevel.gd" id="1_yrw4w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bb6o2xpkaq2kx" path="res://Objective.tscn" id="2_t3g5p"]
 [ext_resource type="Script" path="res://Objective.gd" id="4_yu318"]
 [ext_resource type="Script" path="res://Packages.gd" id="5_yxmuc"]
+[ext_resource type="Script" path="res://SpawnManager.gd" id="7_jkdqn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hsmon"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -100,56 +101,6 @@ mesh = SubResource("BoxMesh_0b5ek")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/MeshInstance3D2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_362kp")
 
-[node name="Objective" parent="." instance=ExtResource("2_t3g5p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.3639, 0.547224, 34.8812)
-
-[node name="Area3D" type="Area3D" parent="Objective"]
-script = ExtResource("4_yu318")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Objective/Area3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.754302, 0)
-shape = SubResource("SphereShape3D_c617a")
-
-[node name="Objective2" parent="." instance=ExtResource("2_t3g5p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.636, 0.547224, 34.8812)
-
-[node name="Area3D" type="Area3D" parent="Objective2"]
-script = ExtResource("4_yu318")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Objective2/Area3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.754302, 0)
-shape = SubResource("SphereShape3D_c617a")
-
-[node name="Objective3" parent="." instance=ExtResource("2_t3g5p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.99928, 0.547224, 34.8812)
-
-[node name="Area3D" type="Area3D" parent="Objective3"]
-script = ExtResource("4_yu318")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Objective3/Area3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.754302, 0)
-shape = SubResource("SphereShape3D_c617a")
-
-[node name="Objective4" parent="." instance=ExtResource("2_t3g5p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.869, 0.547224, 34.8812)
-
-[node name="Area3D" type="Area3D" parent="Objective4"]
-script = ExtResource("4_yu318")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Objective4/Area3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.754302, 0)
-shape = SubResource("SphereShape3D_c617a")
-
-[node name="Objective5" parent="." instance=ExtResource("2_t3g5p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.869, 0.547224, 7.60102)
-
-[node name="Area3D" type="Area3D" parent="Objective5"]
-script = ExtResource("4_yu318")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Objective5/Area3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.754302, 0)
-shape = SubResource("SphereShape3D_c617a")
-
 [node name="Label" type="Label" parent="."]
 offset_left = 50.0
 offset_top = 36.0
@@ -164,8 +115,51 @@ offset_right = 263.0
 offset_bottom = 63.0
 script = ExtResource("5_yxmuc")
 
-[connection signal="body_entered" from="Objective/Area3D" to="Objective/Area3D" method="_on_body_entered"]
-[connection signal="body_entered" from="Objective2/Area3D" to="Objective2/Area3D" method="_on_body_entered"]
-[connection signal="body_entered" from="Objective3/Area3D" to="Objective3/Area3D" method="_on_body_entered"]
-[connection signal="body_entered" from="Objective4/Area3D" to="Objective4/Area3D" method="_on_body_entered"]
-[connection signal="body_entered" from="Objective5/Area3D" to="Objective5/Area3D" method="_on_body_entered"]
+[node name="SpawnManager" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.09965, 0)
+script = ExtResource("7_jkdqn")
+
+[node name="SpawnPoints" type="Node3D" parent="SpawnManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209795, 0)
+
+[node name="Spawn1" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.7949, -1.25085, 26.6469)
+
+[node name="Spawn2" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4561, -1.25085, 11.5714)
+
+[node name="Spawn3" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.25085, -17.5049)
+
+[node name="Spawn4" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.83, -1.25085, -27.0845)
+
+[node name="Spawn5" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8567, -1.25085, -31.2224)
+
+[node name="Spawn6" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8091, -1.25085, 1.4787)
+
+[node name="Spawn7" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6438, -1.25085, 26.6469)
+
+[node name="Spawn8" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2672, -1.25085, 26.6469)
+
+[node name="Spawn9" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.2128, -1.25085, 15.8064)
+
+[node name="Spawn10" type="Marker3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.25085, 26.6469)
+
+[node name="DropOff" parent="SpawnManager" instance=ExtResource("2_t3g5p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67872, 0.921189, -4.33857)
+
+[node name="DropOffLoc" type="Area3D" parent="SpawnManager/DropOff"]
+script = ExtResource("4_yu318")
+
+[node name="DropOffShape" type="CollisionShape3D" parent="SpawnManager/DropOff/DropOffLoc"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.754302, 0)
+shape = SubResource("SphereShape3D_c617a")
+
+[connection signal="body_entered" from="SpawnManager/DropOff/DropOffLoc" to="SpawnManager/DropOff/DropOffLoc" method="_on_body_entered"]
