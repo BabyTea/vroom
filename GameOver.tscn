@@ -11,37 +11,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 88.0
+offset_right = 995.0
+offset_bottom = 552.0
+
+[node name="Label" type="Label" parent="Panel"]
 z_index = 1
 layout_mode = 0
-offset_left = 342.0
-offset_top = 195.0
-offset_right = 780.0
-offset_bottom = 339.0
-text = "CONGRATS!
-YOU DELIVERED ALL THE PACKAGES!"
+offset_left = 212.0
+offset_top = 98.0
+offset_right = 650.0
+offset_bottom = 242.0
+text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Restart" type="Button" parent="."]
+[node name="Restart" type="Button" parent="Panel"]
 z_index = 1
 layout_mode = 0
-offset_left = 338.0
-offset_top = 378.0
-offset_right = 528.0
-offset_bottom = 473.0
+offset_left = 208.0
+offset_top = 281.0
+offset_right = 398.0
+offset_bottom = 376.0
 text = "Restart"
 script = ExtResource("1_0xppi")
 
-[node name="Quit" type="Button" parent="."]
+[node name="Quit" type="Button" parent="Panel"]
 z_index = 1
 layout_mode = 0
-offset_left = 601.0
-offset_top = 377.0
-offset_right = 791.0
-offset_bottom = 472.0
+offset_left = 471.0
+offset_top = 280.0
+offset_right = 661.0
+offset_bottom = 375.0
 text = "Quit"
 script = ExtResource("1_s7vsc")
 
-[connection signal="pressed" from="Restart" to="Restart" method="_on_pressed"]
-[connection signal="pressed" from="Quit" to="Quit" method="_on_pressed"]
+[connection signal="pressed" from="Panel/Restart" to="Panel/Restart" method="_on_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="Panel/Quit" method="_on_pressed"]

@@ -1,0 +1,626 @@
+[gd_scene load_steps=29 format=3 uid="uid://daxq50daj0r0u"]
+
+[ext_resource type="PackedScene" uid="uid://0qyrw6kxtf4h" path="res://Player.tscn" id="1_k2a6l"]
+[ext_resource type="Script" path="res://SpawnManager.gd" id="2_n8pos"]
+[ext_resource type="PackedScene" uid="uid://bb6o2xpkaq2kx" path="res://Objective.tscn" id="3_7sxsl"]
+[ext_resource type="Script" path="res://Levels/dropoffloc.gd" id="3_u252k"]
+[ext_resource type="PackedScene" uid="uid://cw3rhdn5664iy" path="res://hud_main.tscn" id="4_1tk0k"]
+[ext_resource type="Script" path="res://Levels/deliver_bar.gd" id="5_ta8qg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4ji4r"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ecff2"]
+sky_material = SubResource("ProceduralSkyMaterial_4ji4r")
+
+[sub_resource type="Environment" id="Environment_o3vjo"]
+background_mode = 2
+sky = SubResource("Sky_ecff2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qgvu2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qbeuk"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fkhug"]
+noise = SubResource("FastNoiseLite_qbeuk")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7fmud"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4p1bu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yc35f"]
+bump_strength = 14.1
+noise = SubResource("FastNoiseLite_4p1bu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdm2g"]
+diffuse_mode = 3
+albedo_color = Color(0.129412, 0.568627, 0.152941, 1)
+metallic = 0.8
+metallic_specular = 0.0
+roughness_texture = SubResource("NoiseTexture2D_yc35f")
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 1.9
+emission_texture = SubResource("NoiseTexture2D_qgvu2")
+normal_scale = -16.0
+normal_texture = SubResource("NoiseTexture2D_7fmud")
+heightmap_scale = 5.1
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("NoiseTexture2D_fkhug")
+subsurf_scatter_strength = 0.75
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_56n6d"]
+material = SubResource("StandardMaterial3D_tdm2g")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gnvss"]
+points = PackedVector3Array(1.01587, 0.015873, 1.01587, -1.01587, -0.015873, -1.01587, -1.01587, 0.015873, -1.01587, 1.01587, -0.015873, -1.01587, -1.01587, -0.015873, 1.01587, -1.01587, 0.015873, 1.01587, 1.01587, 0.015873, -1.01587, 1.01587, -0.015873, 1.01587)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rh6kk"]
+albedo_color = Color(0.576471, 0.266667, 0.0588235, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_83hmb"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0fvl4"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.0146517, 0.470697, 0.470697, 0.0735213, 0.352957, 0.47061, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.0146517, 0.470697, -0.470697, 0.5, -0.5, 0.5, -0.0146517, 0.470697, 0.470697, 0.0146517, 0.470697, -0.470697)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jy7x"]
+albedo_color = Color(0.0705882, 0.643137, 0.827451, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q0nke"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s6weg"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71nu1"]
+albedo_color = Color(0.560784, 0.254902, 0.647059, 1)
+emission = Color(0.486275, 0.25098, 0.431373, 1)
+emission_energy_multiplier = 1.22
+backlight_enabled = true
+backlight = Color(0.803922, 0.45098, 0.654902, 1)
+point_size = 39.4
+
+[sub_resource type="TextMesh" id="TextMesh_ndq3a"]
+material = SubResource("StandardMaterial3D_71nu1")
+text = "^"
+font_size = 127
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qjtw2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eg0tt"]
+
+[node name="PackageTest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o3vjo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 3.92923, 0)
+shadow_enabled = true
+
+[node name="Terrain" type="Node3D" parent="."]
+transform = Transform3D(5.04396, 0, 0, 0, 1, 0, 0, 0, 5.04396, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain"]
+transform = Transform3D(18.1947, 0, 0, 0, 1.00235, 0, 0, 0, 18.1947, 0, 0, 0)
+mesh = SubResource("PlaneMesh_56n6d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_gnvss")
+
+[node name="House1" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, 11.3824, 0.718829, 9.48332)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House1"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House1/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House1/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House1"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House1/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House1/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House2" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, 5.56875, 0.718829, 9.48332)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House2"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House2/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House2/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House2"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House2/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House2/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House3" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, -0.663634, 0.718829, 9.48332)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House3"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House3/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House3/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House3"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House3/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House3/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House4" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, -6.8856, 0.718829, 9.48332)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House4"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House4/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House4/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House4"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House4/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House4/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House5" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, -12.8282, 0.718829, 9.48332)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House5"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House5/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House5/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House5"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House5/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House5/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House6" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, 11.3824, 0.718829, -12.2936)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House6"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House6/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House6/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House6"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House6/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House6/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House7" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, 5.56875, 0.718829, -12.2936)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House7"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House7/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House7/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House7"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House7/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House7/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House8" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, -0.663634, 0.718829, -12.2936)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House8"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House8/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House8/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House8"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House8/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House8/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House9" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, -6.8856, 0.718829, -12.2936)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House9"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House9/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House9/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House9"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House9/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House9/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="House10" type="Node3D" parent="Terrain"]
+transform = Transform3D(2.08644, 0, 0, 0, 2.55153, 0, 0, 0, 2.49194, -12.8282, 0.718829, -12.2936)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain/House10"]
+transform = Transform3D(1, 0, 0, 0, 2.56041, 0, 0, 0, 0.76124, 0, 2.17664, 0)
+material_override = SubResource("StandardMaterial3D_rh6kk")
+mesh = SubResource("PrismMesh_83hmb")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House10/MeshInstance3D2"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House10/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0fvl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/House10"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2jy7x")
+mesh = SubResource("BoxMesh_q0nke")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/House10/MeshInstance3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/House10/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0.75, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6weg")
+
+[node name="Car" parent="." groups=["Player"] instance=ExtResource("1_k2a6l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53876, 1.15273, 1.4173)
+
+[node name="SpawnManager" type="Node3D" parent="."]
+script = ExtResource("2_n8pos")
+
+[node name="GPS" type="Node3D" parent="SpawnManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.09965, 0)
+top_level = true
+
+[node name="GPSArrow" type="MeshInstance3D" parent="SpawnManager/GPS"]
+transform = Transform3D(-2.62083, -2.2912e-07, 3.82137e-15, 0, -1.1456e-07, -1, 2.2912e-07, -2.62083, 4.37114e-08, 0, 1.367, -8)
+cast_shadow = 0
+mesh = SubResource("TextMesh_ndq3a")
+
+[node name="SpawnPoints" type="Node3D" parent="SpawnManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209795, 0)
+
+[node name="Spawn1" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.88, 0, 30.0457)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn1"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn1/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn2" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9916, 0, 30.0457)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn2"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn2/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn3" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88658, 0, 30.0457)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn3"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn3/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn4" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.8284, 0, 30.0457)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn4"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn4/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn5" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.6533, 0, 30.0457)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn5"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn5/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn6" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 57.88, 0, -43.9875)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn6"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn6/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn7" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 27.9111, 0, -43.9875)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn7"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn7/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn8" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.73691, 0, -43.9875)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn8"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn8/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn9" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -35.382, 0, -43.9875)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn9"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn9/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="Spawn10" type="Node3D" parent="SpawnManager/SpawnPoints"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -67.03, 0, -43.9875)
+
+[node name="throwloc" type="Marker3D" parent="SpawnManager/SpawnPoints/Spawn10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459471, 10.6341)
+
+[node name="dropoffloc" type="Area3D" parent="SpawnManager/SpawnPoints/Spawn10"]
+script = ExtResource("3_u252k")
+
+[node name="dropoffcollision" type="CollisionShape3D" parent="SpawnManager/SpawnPoints/Spawn10/dropoffloc"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_qjtw2")
+
+[node name="DropOff" parent="SpawnManager" instance=ExtResource("3_7sxsl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67872, 0.921189, -4.33857)
+
+[node name="Spawner" type="Node3D" parent="SpawnManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.520156, 12.1399)
+top_level = true
+
+[node name="Delivery" type="Control" parent="SpawnManager"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="deliver_bar" type="ProgressBar" parent="SpawnManager/Delivery"]
+modulate = Color(0.447059, 1, 0.172549, 1)
+material = SubResource("ShaderMaterial_eg0tt")
+layout_mode = 0
+offset_left = 465.0
+offset_top = 449.0
+offset_right = 695.0
+offset_bottom = 467.0
+tooltip_text = "FINDING PACKAGE"
+step = 1.0
+rounded = true
+allow_greater = true
+show_percentage = false
+script = ExtResource("5_ta8qg")
+
+[node name="Timer" type="Timer" parent="SpawnManager/Delivery/deliver_bar"]
+
+[node name="deliver_txt" type="RichTextLabel" parent="SpawnManager/Delivery"]
+layout_mode = 0
+offset_left = 522.0
+offset_top = 472.0
+offset_right = 659.0
+offset_bottom = 501.0
+text = "Finding Package"
+
+[node name="Hud_Main" parent="." instance=ExtResource("4_1tk0k")]
+
+[connection signal="ready" from="Car" to="Car" method="_on_ready"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn1/dropoffloc" to="SpawnManager/SpawnPoints/Spawn1/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn1/dropoffloc" to="SpawnManager/SpawnPoints/Spawn1/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn1/dropoffloc" to="SpawnManager/SpawnPoints/Spawn1/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn1/dropoffloc" to="SpawnManager/SpawnPoints/Spawn1/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn2/dropoffloc" to="SpawnManager/SpawnPoints/Spawn2/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn2/dropoffloc" to="SpawnManager/SpawnPoints/Spawn2/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn2/dropoffloc" to="SpawnManager/SpawnPoints/Spawn2/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn2/dropoffloc" to="SpawnManager/SpawnPoints/Spawn2/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn3/dropoffloc" to="SpawnManager/SpawnPoints/Spawn3/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn3/dropoffloc" to="SpawnManager/SpawnPoints/Spawn3/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn3/dropoffloc" to="SpawnManager/SpawnPoints/Spawn3/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn3/dropoffloc" to="SpawnManager/SpawnPoints/Spawn3/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn4/dropoffloc" to="SpawnManager/SpawnPoints/Spawn4/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn4/dropoffloc" to="SpawnManager/SpawnPoints/Spawn4/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn4/dropoffloc" to="SpawnManager/SpawnPoints/Spawn4/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn4/dropoffloc" to="SpawnManager/SpawnPoints/Spawn4/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn5/dropoffloc" to="SpawnManager/SpawnPoints/Spawn5/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn5/dropoffloc" to="SpawnManager/SpawnPoints/Spawn5/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn5/dropoffloc" to="SpawnManager/SpawnPoints/Spawn5/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn5/dropoffloc" to="SpawnManager/SpawnPoints/Spawn5/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn6/dropoffloc" to="SpawnManager/SpawnPoints/Spawn6/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn6/dropoffloc" to="SpawnManager/SpawnPoints/Spawn6/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn6/dropoffloc" to="SpawnManager/SpawnPoints/Spawn6/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn6/dropoffloc" to="SpawnManager/SpawnPoints/Spawn6/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn7/dropoffloc" to="SpawnManager/SpawnPoints/Spawn7/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn7/dropoffloc" to="SpawnManager/SpawnPoints/Spawn7/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn7/dropoffloc" to="SpawnManager/SpawnPoints/Spawn7/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn7/dropoffloc" to="SpawnManager/SpawnPoints/Spawn7/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn8/dropoffloc" to="SpawnManager/SpawnPoints/Spawn8/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn8/dropoffloc" to="SpawnManager/SpawnPoints/Spawn8/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn8/dropoffloc" to="SpawnManager/SpawnPoints/Spawn8/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn8/dropoffloc" to="SpawnManager/SpawnPoints/Spawn8/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn9/dropoffloc" to="SpawnManager/SpawnPoints/Spawn9/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn9/dropoffloc" to="SpawnManager/SpawnPoints/Spawn9/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn9/dropoffloc" to="SpawnManager/SpawnPoints/Spawn9/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn9/dropoffloc" to="SpawnManager/SpawnPoints/Spawn9/dropoffloc" method="_on_body_exited"]
+[connection signal="area_entered" from="SpawnManager/SpawnPoints/Spawn10/dropoffloc" to="SpawnManager/SpawnPoints/Spawn10/dropoffloc" method="_on_area_entered"]
+[connection signal="area_exited" from="SpawnManager/SpawnPoints/Spawn10/dropoffloc" to="SpawnManager/SpawnPoints/Spawn10/dropoffloc" method="_on_area_exited"]
+[connection signal="body_entered" from="SpawnManager/SpawnPoints/Spawn10/dropoffloc" to="SpawnManager/SpawnPoints/Spawn10/dropoffloc" method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnManager/SpawnPoints/Spawn10/dropoffloc" to="SpawnManager/SpawnPoints/Spawn10/dropoffloc" method="_on_body_exited"]
+[connection signal="timeout" from="SpawnManager/Delivery/deliver_bar/Timer" to="SpawnManager/Delivery/deliver_bar" method="_on_timer_timeout"]

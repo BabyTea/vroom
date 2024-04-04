@@ -18,6 +18,14 @@ config/icon="res://icon.svg"
 
 Global="*res://Global.gd"
 
+[importer_defaults]
+
+3d_texture={
+"compress/channel_pack": 2,
+"compress/mode": 0,
+"mipmaps/generate": false
+}
+
 [input]
 
 forward={

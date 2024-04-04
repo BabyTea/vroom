@@ -1,12 +1,36 @@
 extends VehicleBody3D
 
+signal dead
+var test = false
 # This sets the max speed
-var max_rpm = 600
+var max_rpm = 800
 # This sets the rate of acceleration
-var max_torque = 1600
+var max_torque = 1400
+
+func playerdead():
+	if test == true:
+		max_rpm = 1
+		max_torque = 0
+		$Car_Body/GPUParticles3D2.emitting = true
+		emit_signal("dead")
+		test = false
+		print("once")
 
 func _physics_process(delta):
-	
+	var oldspeed = Global.playerspeed
+	Global.playerspeed = ((Global.playerpos - self.position)/delta).length()
+	var damage = round(oldspeed - Global.playerspeed)
+	if damage > 2:
+		Global.playerhealth = Global.playerhealth - damage
+	if Global.playerhealth <= 0:
+		playerdead()
+	Global.playerpos = self.position
+	if Global.restart == 1:
+		max_rpm = 600
+		max_torque = 1200
+		Global.playerhealth = 100
+	if max_torque > 0:
+		$Car_Body/GPUParticles3D2.emitting = false
 	'''
 	Car Physics and Control
 	'''
@@ -59,3 +83,7 @@ func _physics_process(delta):
 
 func obj_get():
 	Global.packages = Global.packages - 1
+
+
+func _on_ready():
+	self.position = Global.playerpos

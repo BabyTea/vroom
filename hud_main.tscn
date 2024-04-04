@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw3rhdn5664iy"]
+
+[ext_resource type="Script" path="res://Hud_Main.gd" id="1_laklv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yw4wj"]
+bg_color = Color(0.694118, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_gq3jt"]
+default_font_size = 0
+ProgressBar/styles/background = SubResource("StyleBoxFlat_yw4wj")
+
+[node name="Hud_Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_laklv")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 594.0
+offset_right = 234.0
+offset_bottom = 634.0
+
+[node name="HPBar" type="ProgressBar" parent="Panel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 221.0
+offset_bottom = 37.0
+theme = SubResource("Theme_gq3jt")
+value = 100.0
