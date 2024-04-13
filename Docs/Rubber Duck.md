@@ -1,0 +1,23 @@
+# Package delivery steps
+- Spawn new package
+	- pick a location randomly from the spawn list
+	- move marker to the chosen location
+	- play the 'create' animation
+	- move to the idle animation
+- Player enters collision node
+	- Check if node is correct one - If not, ignore
+	- hide GPS
+	- Start capture timer
+	- Play capture animation
+	- Show capture hud
+- Timer finishes:
+	- Play delete animation
+	- decrease package amount
+	- hide capture hud
+	- pick new delivery location
+	- show GPS
+- Player leaves delivery node before capture:
+	- show GPS
+	- hide capture hud
+	- stop timer
+	- return to 'idle' animation

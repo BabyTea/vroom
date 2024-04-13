@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"751be78778a3a4df","type":"text","text":"# Vroom\nA game where you drive around a town, racing other cars to make pickups and deliveries.","x":-320,"y":-340,"width":250,"height":210},
+		{"id":"92ee9225faf61551","type":"text","text":"# Info/Apps\n- Godot Engine\n- BlockBench\n","x":76,"y":-340,"width":250,"height":210},
+		{"id":"6cb0181a3c5102c9","type":"text","text":"# Basics\n- Movement - DONE\n- Camera - DONE\n- Collision - DONE\n- Pickup / Drop off / Score - DONE\n- Simple HUD\n\t- GPS Arrow DONE","x":-425,"y":-20,"width":460,"height":260},
+		{"id":"1ecc0672645c1e1a","type":"text","text":"# Objectives\n- Better Delivery Mechanics\n\t- Stay in location to 'find package'\n\t- Throw package toward a point - DONE\n\t- HUD indicators\n\t- Once a location is 'used' - Make it no longer useable (No repeats)","x":-425,"y":560,"width":460,"height":280},
+		{"id":"522b5c7a54c1e394","type":"text","text":"# Controls\n- Tweak driving to have better drifting\n- Reset button to fix flipped car\n- Rotating Camera to keep car in view?","x":140,"y":560,"width":367,"height":280},
+		{"id":"f9697ff9cb384ae7","type":"text","text":"# Fail State/Obstacles\n- Add Damage - DONE\n- Add Gas(?)\n- Add Lose state/Gameover - DONE\n- Basic Traffic AI","x":-920,"y":560,"width":390,"height":280},
+		{"id":"1f6a12047cfd3b38","type":"file","file":"GameDev/Vroom/Changelog.md","x":-1080,"y":-290,"width":550,"height":610}
+	],
+	"edges":[
+		{"id":"3d2d5d5997df7826","fromNode":"751be78778a3a4df","fromSide":"bottom","toNode":"6cb0181a3c5102c9","toSide":"top"},
+		{"id":"034031ac6b0b5a71","fromNode":"751be78778a3a4df","fromSide":"right","toNode":"92ee9225faf61551","toSide":"left"},
+		{"id":"a3d09e46b31cd34d","fromNode":"6cb0181a3c5102c9","fromSide":"bottom","toNode":"1ecc0672645c1e1a","toSide":"top"},
+		{"id":"8e7efd162a5965cf","fromNode":"522b5c7a54c1e394","fromSide":"top","toNode":"6cb0181a3c5102c9","toSide":"bottom"},
+		{"id":"74d9f3c7323b45b9","fromNode":"6cb0181a3c5102c9","fromSide":"bottom","toNode":"f9697ff9cb384ae7","toSide":"top"},
+		{"id":"bc9495ae8645f0ae","fromNode":"751be78778a3a4df","fromSide":"left","toNode":"1f6a12047cfd3b38","toSide":"right"}
+	]
+}

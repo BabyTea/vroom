@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://cn0ol3a3scq2v"]
+
+[ext_resource type="PackedScene" uid="uid://ql4th3rfry58" path="res://traffic-sample2.tscn" id="1_gi163"]
+[ext_resource type="Script" path="res://Levels/TrafficTest.gd" id="1_tajrk"]
+[ext_resource type="Script" path="res://Levels/NavigationAgent3D.gd" id="3_0graj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dtb8x"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uysje"]
+width = 277
+height = 337
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_dtb8x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j422x"]
+albedo_color = Color(0.741176, 0.560784, 0.27451, 1)
+albedo_texture = SubResource("NoiseTexture2D_uysje")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2kyi0"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_io0i6"]
+points = PackedVector3Array(1.01587, 0.015873, 1.01587, -1.01587, -0.015873, -1.01587, -1.01587, 0.015873, -1.01587, 1.01587, -0.015873, -1.01587, -1.01587, -0.015873, 1.01587, -1.01587, 0.015873, 1.01587, 1.01587, 0.015873, -1.01587, 1.01587, -0.015873, 1.01587)
+
+[node name="TrafficTest" type="Node3D"]
+script = ExtResource("1_tajrk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(51.065, 0, 0, 0, 51.065, 0, 0, 0, 51.065, 0, -0.0964117, 0)
+material_override = SubResource("StandardMaterial3D_j422x")
+mesh = SubResource("PlaneMesh_2kyi0")
+skeleton = NodePath("StaticBody3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_io0i6")
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
+transform = Transform3D(0.0195829, 0, 0, 0, 0.015211, 0.0123335, 0, -0.0123335, 0.015211, 0, 0.368522, 0.519799)
+
+[node name="Node3D" parent="." instance=ExtResource("1_gi163")]
+transform = Transform3D(-0.993619, 0, 0.112787, 0, 1, 0, -0.112787, 0, -0.993619, 0.534571, 1.49901, 17.1659)
+mass = 100.0
+engine_force = -914.0
+steering = -0.143815
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Node3D"]
+debug_enabled = true
+script = ExtResource("3_0graj")
+
+[node name="point1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 16.4)
+
+[node name="point2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -25.3706)
